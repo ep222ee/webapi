@@ -2,11 +2,11 @@
   "name": "1dv527",
   "version": "1.0.0",
   "description": "1dv527 ex02 api",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "devstart": "nodemon --inspect ./app.js"
+    "devstart": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,10 @@
   },
   "homepage": "https://github.com/1dv527/ep222ee-examination-2#readme",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
     "standard": "^12.0.1"
   }
 }
