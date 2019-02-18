@@ -13,6 +13,7 @@ app.use(bodyParser.json())
 
 // Routes
 app.use('/', require('./apiRoutes/login.js'))
+app.use('/', require('./apiRoutes/entry.js'))
 
 app.listen(port, () => {
   console.log(`Express started on http://localhost:${port}`)

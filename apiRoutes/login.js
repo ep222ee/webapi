@@ -16,7 +16,7 @@ router.route('/login')
         token
       })
     } else {
-      response.status(400).send({
+      response.status(401).send({
         message: 'failed to login'
       })
     }
