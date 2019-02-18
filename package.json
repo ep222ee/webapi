@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/1dv527/ep222ee-examination-2#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.10",
