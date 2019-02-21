@@ -8,7 +8,7 @@ router.route('/login')
     // Hardcoded user.
     if (request.body.username === 'admin' && request.body.password === 'admin') {
       // Should be environment variable.
-      let secret = 'secret'
+      let secret = process.env.SECRET
       let token = jwt.sign({ username: request.body.username }, secret, { expiresIn: 30 })
 
       response.status(200).send({
