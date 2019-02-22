@@ -24,10 +24,10 @@ passport.use(jwtStrategy)
 // let passportJWT = passport.authenticate('jwt', { session: false })
 
 // Routes
-app.use('/', require('./apiRoutes/login.js'))
+app.use('/', require('./routes/login.js'))
 // app.use('/', passportJWT, require('./apiRoutes/entry.js'))
-app.use('/', require('./apiRoutes/entry.js'))
-app.use('/', require('./apiRoutes/catches.js'))
+app.use('/', require('./routes/entry.js'))
+app.use('/', require('./routes/catches.js'))
 
 app.listen(port, () => {
   console.log(`Express started on http://localhost:${port}`)

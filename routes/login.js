@@ -14,6 +14,7 @@ router.route('/login')
       response.status(200).send({
         message: 'Logged in successfully!',
         token
+        // hateoas länkar.
       })
     } else {
       response.status(401).send({
