@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 // Database connectionstring
 let connectionString = `mongodb://${process.env.USER_NAME}:${process.env.PASSWORD}@ds233320.mlab.com:33320/catches`
 
+mongoose.set('useFindAndModify', false)
+
 module.exports = function () {
   mongoose.connect(connectionString, { useNewUrlParser: true })
 

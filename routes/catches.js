@@ -4,7 +4,7 @@ const router = require('express').Router()
 
 const Catch = require('../models/CatchSchema')
 
-router.route('/catches')// unsafe protect with jwt.
+router.route('/catches/')// unsafe protect with jwt.
   .post(async (request, response, next) => {
     let newCatch = new Catch({
       user: request.body.user,
@@ -33,43 +33,69 @@ router.route('/catches')// unsafe protect with jwt.
     })
   })
   .get(async (request, response, next) => {
-    await Catch.find({}, function (err, catches) {
-      if (err) {
-        console.log(err)
-      }
-      response.status(200).json({
-        message: 'här ska alla catches dyka upp'
-      })
-      // return a set of X amount of catches
-      // supply "next X amount" catches url to browse catches.
-    })
-    // safe
+    if (!request.query.page) {
+      console.log('first page')
+    } else {
+      console.log('not first page')
+    }
   })
+  // return a set of X amount of catches
+  // supply "next X amount" catches url to browse catches.
 
 router.route('/catches/:id')
   .get(async (request, response, next) => {
     try {
       let catchData = await Catch.findById(request.params.id).exec()
-      response.status(200).json(catchData)
+      if (catchData !== null) {
+        response.status(200).json(catchData)
+      } else {
+        next()
+      }
       // hateoas browsing links?
       // message?
     } catch (err) {
       next()
-      console.log(err)
+    }
+  })
+  .put(async (request, response, next) => { // unsafe, protect with jwt
+    try {
+      let updatedCatch = await Catch.findOneAndUpdate(request.params.id, request.body).exec()
+      if (updatedCatch !== null) {
+        let updatedCatch = await Catch.findById(request.params.id).exec()
+        response.status(200).json(updatedCatch)
+      } else {
+        next()
+      }
+    } catch (err) {
+      next()
+    }
+  })
+  .patch(async (request, response, next) => { // unsafe, protect with jwt. Redundant since .put?
+    try {
+      console.log(request.body)
+      let updatedCatch = await Catch.findOneAndUpdate(request.params.id, request.body).exec()
+      if (updatedCatch !== null) {
+        let updatedCatch = await Catch.findById(request.params.id).exec()
+        response.status(200).json(updatedCatch)
+      } else {
+        next()
+      }
+    } catch (err) {
+      next()
+    }
+  })
+  .delete(async (request, response, next) => { // unsafe, protect with jwt
+    console.log(request.params.id)
+    try {
+      let deletedCatch = await Catch.findByIdAndDelete(request.params.id).exec()
+      if (deletedCatch !== null) {
+        response.status(204).json()
+      } else {
+        next()
+      }
+    } catch (err) {
+      next()
     }
   })
 
-  .put(async (request, reponse, next) => {
-    // unsafe, protect with jwt
-    // update with full body.
-  })
-  .patch(async (request, response, next) => {
-    // unsafe, protect with jwt
-    // update with 1 param.
-  })
-  .delete(async (request, response, next) => {
-    // unsafe, protect with jwt
-    // 204 no content
-    // message "removed?"
-  })
 module.exports = router
