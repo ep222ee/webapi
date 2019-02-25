@@ -17,7 +17,7 @@ router.route('/catches/')// unsafe protect with jwt.
     })
     await newCatch.save(function (err, catchData) {
       if (err) {
-        console.log(err)
+        next()
       }
       response.status(201).json({
         links: {
@@ -37,14 +37,15 @@ router.route('/catches/')// unsafe protect with jwt.
           }
         }
       })
-      // call webhook emit payload function!.
     })
+    sendPayload() // move this function to separate file
   })
   .get(async (request, response, next) => {
     try {
       let page = 0
       let nextPage = 2
-      // let resourcesPerPage = 10
+      let resourcesPerPage = 3
+      let lastPage
 
       if (request.query.page) {
         page = parseInt(request.query.page, 10)
@@ -52,69 +53,62 @@ router.route('/catches/')// unsafe protect with jwt.
       }
 
       let catchData = await Catch.find({}).exec()
-
+      lastPage = catchData.length / resourcesPerPage - 1
       let catchArray = []
-      /* let startIndex = page * resourcesPerPage
-      let endIndex = startIndex + (resourcesPerPage - 1) */
-      let startIndex = 0
-      let endIndex = 2
+      let startIndex = page * resourcesPerPage
+      let endIndex = startIndex + (resourcesPerPage - 1)
 
-      for (let i = startIndex; i < endIndex; i++) {
-        console.log(i)
-        console.log(catchData[i]._id)
-        let catchResource = {
-          links: {
-            self: `${process.env.host_URL}/catches/${catchData[i]._id}`
-          },
-          id: catchData[i]._id,
-          user: catchData[i].user,
-          position: catchData[i].position,
-          species: catchData[i].species,
-          weight: catchData[i].weight,
-          length: catchData[i].length,
-          imageUrl: catchData[i].imageUrl,
-          time: catchData[i].time
+      if (catchData.length > 0) {
+        for (let i = startIndex; i <= endIndex; i++) {
+          let catchResource = {
+            links: {
+              self: `${process.env.host_URL}/catches/${catchData[i]._id}`
+            },
+            id: catchData[i]._id,
+            user: catchData[i].user,
+            position: catchData[i].position,
+            species: catchData[i].species,
+            weight: catchData[i].weight,
+            length: catchData[i].length,
+            imageUrl: catchData[i].imageUrl,
+            time: catchData[i].time
+          }
+          catchArray.push(catchResource)
         }
-        catchArray.push(catchResource)
       }
+
       response.status(200).json({
         links: {
           self: `${process.env.HOST_URL}${request.url}`,
-          next: `${process.env.HOST_URL}/catches?page=${nextPage}`
+          next: `${process.env.HOST_URL}/catches?page=${nextPage}`, // change if already on last?
+          lastpage: `${process.env.HOST_URL}/catches?page=${lastPage}`
         },
         data: catchArray
       })
     } catch (err) {
-      console.log(err)
       next()
     }
   })
-  // return a set of X amount of catches
-  // supply "next X amount" catches url to browse catches.
 
 router.route('/catches/:id')
   .get(async (request, response, next) => {
     try {
       let catchData = await Catch.findById(request.params.id).exec()
-      if (catchData !== null) {
-        response.status(200).json({
-          links: {
-            self: `${process.env.HOST_URL}${request.url}`
-          },
-          data: {
-            id: catchData._id,
-            user: catchData.user,
-            position: catchData.position,
-            species: catchData.species,
-            weight: catchData.weight,
-            length: catchData.length,
-            imageUrl: catchData.imageUrl,
-            time: catchData.time
-          }
-        })
-      } else {
-        next()
-      }
+      response.status(200).json({
+        links: {
+          self: `${process.env.HOST_URL}${request.url}`
+        },
+        data: {
+          id: catchData._id,
+          user: catchData.user,
+          position: catchData.position,
+          species: catchData.species,
+          weight: catchData.weight,
+          length: catchData.length,
+          imageUrl: catchData.imageUrl,
+          time: catchData.time
+        }
+      })
     } catch (err) {
       next()
     }
@@ -129,7 +123,6 @@ router.route('/catches/:id')
             self: `${process.env.HOST_URL}${request.url}`
           },
           data: {
-            type: 'catches',
             id: updatedCatch._id,
             user: updatedCatch.user,
             position: updatedCatch.position,
@@ -186,5 +179,26 @@ router.route('/catches/:id')
       next()
     }
   })
+
+const fetch = require('node-fetch')
+// move this to other file.
+
+async function sendPayload () {
+  let payload = {
+    test: 'tja',
+    tes2t: 'tja2'
+  }
+
+  let hookUrl = 'https://webhook.site/349e8333-97ad-4ec1-bc69-5f6e14ef8254'
+  let hook = await fetch(hookUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+
+  console.log(hook)
+}
 
 module.exports = router

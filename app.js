@@ -28,6 +28,7 @@ app.use('/', require('./routes/login.js'))
 // app.use('/', passportJWT, require('./apiRoutes/entry.js'))
 app.use('/', require('./routes/entry.js'))
 app.use('/', require('./routes/catches.js'))
+app.use('/', require('./routes/hooks.js'))
 
 app.listen(port, () => {
   console.log(`Express started on http://localhost:${port}`)
