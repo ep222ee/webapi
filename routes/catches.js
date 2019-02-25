@@ -186,6 +186,7 @@ const Hook = require('../models/HookSchema')
 
 async function sendPayload () {
   try {
+    // setup proper payload
     let payload = {
       test: 'tja',
       tes2t: 'tja2'
