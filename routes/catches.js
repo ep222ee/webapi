@@ -180,25 +180,31 @@ router.route('/catches/:id')
     }
   })
 
-const fetch = require('node-fetch')
 // move this to other file.
+const fetch = require('node-fetch')
+const Hook = require('../models/HookSchema')
 
 async function sendPayload () {
-  let payload = {
-    test: 'tja',
-    tes2t: 'tja2'
+  try {
+    let payload = {
+      test: 'tja',
+      tes2t: 'tja2'
+    }
+
+    let subscribers = await Hook.find({}).exec()
+    subscribers.forEach(async (subscriber) => {
+      await fetch(subscriber.hookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+    })
+  } catch (err) {
+    console.log(err)
+    // next
   }
-
-  let hookUrl = 'https://webhook.site/349e8333-97ad-4ec1-bc69-5f6e14ef8254'
-  let hook = await fetch(hookUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  })
-
-  console.log(hook)
 }
 
 module.exports = router
