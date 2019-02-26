@@ -26,11 +26,11 @@ app.use(bodyParser.json())
 app.use(passport.initialize())
 passport.use(jwtStrategy)
 // let passportJWT = passport.authenticate('jwt', { session: false })
+// app.use('/', passportJWT, require('./routes/login.js'))
 
 // Routes
 app.use('/', require('./routes/entrypointRouter.js'))
-app.use('/', require('./routes/login.js'))
-// app.use('/', passportJWT, require('./apiRoutes/entry.js'))
+app.use('/', require('./routes/loginRouter.js'))
 
 app.use('/', require('./routes/catches.js'))
 app.use('/', require('./routes/hooks.js'))
