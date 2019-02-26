@@ -17,7 +17,11 @@ const hateoasLinker = require('express-hateoas-links')
 
 mongoose()
 
+// Hateoas url middleware.
 app.use(hateoasLinker)
+
+// Disable x-powered-by header.
+app.disable('x-powered-by')
 
 // Bodyparser settings.
 app.use(bodyParser.json())

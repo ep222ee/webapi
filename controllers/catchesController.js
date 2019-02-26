@@ -11,7 +11,7 @@ catchesController.getCatches = async (req, res, next) => {
   try {
     let page = 0
     let nextPage = 2
-    let resourcesPerPage = 20
+    let resourcesPerPage = 1
     let lastPage
 
     if (req.query.page) {
@@ -19,8 +19,9 @@ catchesController.getCatches = async (req, res, next) => {
       nextPage = page + 1
     }
 
-    // Todo: Fixa lastpage.
-    let catchData = await Catch.find({}).exec()
+    // Todo: Fix lastpage.
+    // Todo: Fix the dynamic retrieval of catches.
+    let catchData = await Catch.find({})
     lastPage = catchData.length / resourcesPerPage - 1
     let catchArray = []
     let startIndex = page * resourcesPerPage
@@ -28,6 +29,7 @@ catchesController.getCatches = async (req, res, next) => {
 
     if (catchData.length > 0) {
       for (let i = startIndex; i <= endIndex; i++) {
+        console.log(catchData[i])
         let catchResource = {
           data: {
             type: 'catches',
@@ -59,6 +61,7 @@ catchesController.getCatches = async (req, res, next) => {
       { rel: 'lastPage', method: 'GET', title: `View last page of catches`, href: `${process.env.HOST_URL}/catches?page=${lastPage}` }
     ])
   } catch (err) {
+    console.log(err)
     next()
   }
 }
