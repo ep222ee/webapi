@@ -13,11 +13,12 @@ loginController.loginPost = async (req, res, next) => {
       message: `Logged in successfully!, Token received. Use the token in upcoming request, token will live for ${tokenLifeTime}`,
       token
     }, [
-      { rel: 'self', method: 'GET', title: 'Get all catches', href: `${process.env.HOST_URL}/catches/` },
-      { rel: 'self', method: 'GET', title: 'Get specific catch', href: `${process.env.HOST_URL}/catches/:id` },
-      { rel: 'self', method: 'POST', title: 'Create Catch', href: `${process.env.HOST_URL}/catches/` },
-      { rel: 'self', method: 'UPDATE', title: 'Update existing catch', href: `${process.env.HOST_URL}/catches/:id` },
-      { rel: 'self', method: 'DELETE', title: 'Delete existing catch', href: `${process.env.HOST_URL}/catches/:id` }
+      { rel: 'self', method: 'POST', title: 'Login', href: `${process.env.HOST_URL}/login/` },
+      { rel: 'view all', method: 'GET', title: 'Get all catches', href: `${process.env.HOST_URL}/catches/` },
+      { rel: 'view one', method: 'GET', title: 'Get specific catch', href: `${process.env.HOST_URL}/catches/:id` },
+      { rel: 'create', method: 'POST', title: 'Create Catch', href: `${process.env.HOST_URL}/catches/` },
+      { rel: 'update', method: 'PUT', title: 'Update existing catch', href: `${process.env.HOST_URL}/catches/:id` },
+      { rel: 'delete', method: 'DELETE', title: 'Delete existing catch', href: `${process.env.HOST_URL}/catches/:id` }
     ])
   } else {
     res.status(401).json({

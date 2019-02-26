@@ -3,7 +3,7 @@
 const router = require('express').Router()
 const Hook = require('../models/HookSchema')
 
-router.route('/hooks')
+router.route('/hooks/')
   .post(async (request, response, next) => {
     let newHook = new Hook({
       hookUrl: request.body.hookUrl

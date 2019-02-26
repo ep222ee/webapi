@@ -32,7 +32,7 @@ passport.use(jwtStrategy)
 app.use('/', require('./routes/entrypointRouter.js'))
 app.use('/', require('./routes/loginRouter.js'))
 
-app.use('/', require('./routes/catches.js'))
+app.use('/', require('./routes/catchesRouter.js'))
 app.use('/', require('./routes/hooks.js'))
 
 app.listen(port, () => {
