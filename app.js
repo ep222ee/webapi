@@ -13,7 +13,11 @@ const mongoose = require('./config/mongoose.js')
 const passport = require('passport')
 const jwtStrategy = require('./passport/jwtstrategy')
 
+const hateoasLinker = require('express-hateoas-links')
+
 mongoose()
+
+app.use(hateoasLinker)
 
 // Bodyparser settings.
 app.use(bodyParser.json())
@@ -24,9 +28,10 @@ passport.use(jwtStrategy)
 // let passportJWT = passport.authenticate('jwt', { session: false })
 
 // Routes
+app.use('/', require('./routes/entrypointRouter.js'))
 app.use('/', require('./routes/login.js'))
 // app.use('/', passportJWT, require('./apiRoutes/entry.js'))
-app.use('/', require('./routes/entry.js'))
+
 app.use('/', require('./routes/catches.js'))
 app.use('/', require('./routes/hooks.js'))
 
