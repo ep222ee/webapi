@@ -1,8 +1,8 @@
 'use strict'
 
-const entryController = {}
+const rootController = {}
 
-entryController.entry = async (req, res, next) => {
+rootController.getRoot = async (req, res, next) => {
   res.status(200).json({
     Message: 'Welcome to the blackmouthed goby api. Log in to manage catches'
   }, [
@@ -11,4 +11,4 @@ entryController.entry = async (req, res, next) => {
   ])
 }
 
-module.exports = entryController
+module.exports = rootController

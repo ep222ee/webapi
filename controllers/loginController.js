@@ -18,7 +18,8 @@ loginController.loginPost = async (req, res, next) => {
       { rel: 'view one', method: 'GET', title: 'Get specific catch', href: `${process.env.HOST_URL}/catches/:id` },
       { rel: 'create', method: 'POST', title: 'Create Catch', href: `${process.env.HOST_URL}/catches/` },
       { rel: 'update', method: 'PUT', title: 'Update existing catch', href: `${process.env.HOST_URL}/catches/:id` },
-      { rel: 'delete', method: 'DELETE', title: 'Delete existing catch', href: `${process.env.HOST_URL}/catches/:id` }
+      { rel: 'delete', method: 'DELETE', title: 'Delete existing catch', href: `${process.env.HOST_URL}/catches/:id` },
+      { rel: 'hook', method: 'POST', title: 'Register Webhook', href: `${process.env.HOST_URL}/hooks/` }
     ])
   } else {
     res.status(401).json({

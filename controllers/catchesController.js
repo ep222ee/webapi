@@ -175,6 +175,7 @@ catchesController.deleteCatch = async (req, res, next) => {
 }
 
 catchesController.sendPayload = async () => {
+  // event as parameter?
   console.log('payload!')
 
   try {
