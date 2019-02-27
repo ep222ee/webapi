@@ -2,8 +2,9 @@
 
 require('dotenv').config()
 const Catch = require('../models/CatchSchema')
-const fetch = require('node-fetch')
 const Hook = require('../models/HookSchema')
+const fetch = require('node-fetch')
+const xssFilters = require('xss-filters')
 
 const catchesController = {}
 
@@ -22,14 +23,16 @@ catchesController.getCatches = async (req, res, next) => {
     // Todo: Fix lastpage.
     // Todo: Fix the dynamic retrieval of catches.
     let catchData = await Catch.find({})
-    lastPage = catchData.length / resourcesPerPage - 1
-    let catchArray = []
-    let startIndex = page * resourcesPerPage
-    let endIndex = startIndex + (resourcesPerPage - 1)
+    if (catchData.length > 0) { // flytta upp
+      lastPage = Math.ceil(catchData.length / resourcesPerPage - 1)
+      let catchArray = []
+      let startIndex = page * resourcesPerPage
+      let endIndex = startIndex + (resourcesPerPage - 1)
 
-    if (catchData.length > 0) {
+      if (endIndex >= catchData.length) {
+        endIndex = catchData.length - 1
+      }
       for (let i = startIndex; i <= endIndex; i++) {
-        console.log(catchData[i])
         let catchResource = {
           data: {
             type: 'catches',
@@ -52,29 +55,29 @@ catchesController.getCatches = async (req, res, next) => {
         }
         catchArray.push(catchResource)
       }
+      res.status(200).json({
+        data: catchArray
+      }, [
+        { rel: 'self', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}${req.url}` },
+        { rel: 'self', method: 'POST', title: 'create catch', href: `${process.env.HOST_URL}` },
+        { rel: 'next', method: 'GET', title: `view next ${resourcesPerPage} catches`, href: `${process.env.HOST_URL}/catches?page=${nextPage}` },
+        { rel: 'lastPage', method: 'GET', title: `view last page of catches`, href: `${process.env.HOST_URL}/catches?page=${lastPage}` }
+      ])
     }
-    res.status(200).json({
-      data: catchArray
-    }, [
-      { rel: 'self', method: 'GET', title: 'View all catches', href: `${process.env.HOST_URL}${req.url}` },
-      { rel: 'next', method: 'GET', title: `View next ${resourcesPerPage} catches`, href: `${process.env.HOST_URL}/catches?page=${nextPage}` },
-      { rel: 'lastPage', method: 'GET', title: `View last page of catches`, href: `${process.env.HOST_URL}/catches?page=${lastPage}` }
-    ])
   } catch (err) {
-    console.log(err)
     next()
   }
 }
 
 catchesController.postCatches = async (req, res, next) => {
   let newCatch = new Catch({
-    user: req.body.user,
-    position: req.body.position,
-    species: req.body.species,
-    weight: req.body.weight,
-    length: req.body.length,
-    imageUrl: req.body.imageUrl,
-    time: req.body.time
+    user: xssFilters.inHTMLData(req.body.user),
+    position: xssFilters.inHTMLData(req.body.position),
+    species: xssFilters.inHTMLData(req.body.species),
+    weight: xssFilters.inHTMLData(req.body.weight),
+    length: xssFilters.inHTMLData(req.body.length),
+    imageUrl: xssFilters.inHTMLData(req.body.imageUrl),
+    time: xssFilters.inHTMLData(req.body.time)
   })
   await newCatch.save(function (err, catchData) {
     if (err) {
@@ -97,18 +100,19 @@ catchesController.postCatches = async (req, res, next) => {
         }
       }
     }, [
-      { rel: 'self', method: 'POST', title: 'Create catch', href: `${process.env.HOST_URL}/catches/` },
-      { rel: 'view created', method: 'GET', title: 'View newly created catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
-      { rel: 'update', method: 'PUT', title: 'Edit newly created catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
-      { rel: 'delete', method: 'DELETE', title: 'View newly created catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` }
+      { rel: 'self', method: 'POST', title: 'create catch', href: `${process.env.HOST_URL}/catches/` },
+      { rel: 'view created', method: 'GET', title: 'view newly created catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
+      { rel: 'update', method: 'PUT', title: 'edit newly created catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
+      { rel: 'delete', method: 'DELETE', title: 'delete newly created catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
+      { rel: 'view all', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}/catches/` }
     ])
-    catchesController.sendPayload()
+    catchesController.sendPayload('created', catchData)
   })
 }
 
 catchesController.getCatch = async (req, res, next) => {
   try {
-    let catchData = await Catch.findById(req.params.id).exec()
+    let catchData = await Catch.findById(req.params.id)
     res.status(200).json({
       data: {
         type: 'catches',
@@ -124,9 +128,10 @@ catchesController.getCatch = async (req, res, next) => {
         }
       }
     }, [
-      { rel: 'self', method: 'GET', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
-      { rel: 'update', method: 'PUT', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
-      { rel: 'delete', method: 'DELETE', href: `${process.env.HOST_URL}/catches/${catchData._id}` }
+      { rel: 'self', method: 'GET', title: 'view catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
+      { rel: 'update', method: 'PUT', title: 'update catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
+      { rel: 'delete', method: 'DELETE', title: 'delete catch', href: `${process.env.HOST_URL}/catches/${catchData._id}` },
+      { rel: 'view all', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}/catches/` }
     ])
   } catch (err) {
     next()
@@ -156,46 +161,58 @@ catchesController.putCatch = async (req, res, next) => {
       }
     }
   }, [
-    { rel: 'self', method: 'PUT', href: `${process.env.HOST_URL}/catches/${updatedCatch._id}` },
+    { rel: 'self', method: 'PUT', title: 'update catch', href: `${process.env.HOST_URL}/catches/${updatedCatch._id}` },
     { rel: 'view', method: 'GET', title: 'view catch', href: `${process.env.HOST_URL}/catches/${updatedCatch._id}` },
-    { rel: 'delete', method: 'DELETE', title: 'delete catch', href: `${process.env.HOST_URL}/catches/${updatedCatch._id}` }
+    { rel: 'delete', method: 'DELETE', title: 'delete catch', href: `${process.env.HOST_URL}/catches/${updatedCatch._id}` },
+    { rel: 'view all', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}/catches/` }
   ])
+  catchesController.sendPayload('updated', updatedCatch)
 }
 
 catchesController.deleteCatch = async (req, res, next) => {
-  await Catch.findByIdAndDelete(req.params.id, (err, data) => {
+  await Catch.findByIdAndDelete(req.params.id, (err, catchData) => {
     if (err) {
-      console.log(err)
       next()
     }
-
-    if (data !== null) {
+    if (catchData !== null) {
       res.status(204).send()
+      catchesController.sendPayload('deleted', catchData)
     } else {
       next()
     }
   })
 }
 
-catchesController.sendPayload = async () => {
-  // event as parameter?
-  console.log('payload!')
-
+catchesController.sendPayload = async (event, catchData) => {
   try {
-    // setup proper payload
     let payload = {
-      test: 'tja',
-      tes2t: 'tja2'
+      message: `Catch ${catchData._id} was ${event}`,
+      event: `catch.${event}`,
+      contains: ['catch'],
+      payload: {
+        catch: {
+          id: catchData._id,
+          user: catchData.user,
+          position: catchData.position,
+          species: catchData.species,
+          weight: catchData.weight,
+          length: catchData.length,
+          imageUrl: catchData.imageUrl,
+          time: catchData.time
+        }
+      }
     }
     let subscribers = await Hook.find({})
     subscribers.forEach(async (subscriber) => {
-      await fetch(subscriber.hookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
+      if (subscriber.events.includes(event)) {
+        await fetch(subscriber.hookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+      }
     })
   } catch (err) {
     console.log(err)

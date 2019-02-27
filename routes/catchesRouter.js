@@ -1,8 +1,6 @@
 'use strict'
 
 const router = require('express').Router()
-// require('dotenv').config()
-
 const controller = require('../controllers/catchesController')
 
 router.route('/catches/')

@@ -4,22 +4,22 @@ const Hook = require('../models/HookSchema')
 const hooksController = {}
 
 hooksController.postHooks = async (req, res, next) => {
-  console.log('yeah')
   let newHook = new Hook({
-    hookUrl: req.body.hookUrl
+    hookUrl: req.body.hookUrl,
+    events: req.body.options.events
   })
-
-  // receive webhook options that sign's up to different events?
-  // receive secret, hash and save?
-
-  await newHook.save(function (err, catchData) {
+  await newHook.save((err, hookData) => {
     if (err) {
       next()
     }
-    // add proper message and hateoas.
     res.status(201).json({
-      message: 'success'
-    })
+      message: 'successfully subscribed webhook',
+      hookUrl: hookData.hookUrl,
+      events: hookData.events
+    }, [
+      { rel: 'self', method: 'POST', href: `${process.env.HOST_URL}${req.url}` },
+      { rel: 'view all', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}/catches/` }
+    ])
   })
 }
 

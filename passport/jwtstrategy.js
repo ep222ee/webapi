@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const JWTOptions = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SECRET, // should be .env
+  secretOrKey: process.env.SECRET,
   ignoreExpiration: false
 }
 
