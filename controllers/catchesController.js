@@ -86,7 +86,7 @@ catchesController.postCatches = async (req, res, next) => {
     imageUrl: xssFilters.inHTMLData(req.body.imageUrl),
     time: xssFilters.inHTMLData(req.body.time)
   })
-  await newCatch.save(function (err, catchData) {
+  await newCatch.save((err, catchData) => {
     if (err) {
       next()
     }
