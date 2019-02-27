@@ -17,7 +17,7 @@ hooksController.postHooks = async (req, res, next) => {
       hookUrl: hookData.hookUrl,
       events: hookData.events
     }, [
-      { rel: 'self', method: 'POST', href: `${process.env.HOST_URL}${req.url}` },
+      { rel: 'self', method: 'POST', title: 'setup webhook', href: `${process.env.HOST_URL}${req.url}` },
       { rel: 'view all', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}/catches/` }
     ])
   })

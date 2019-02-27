@@ -30,7 +30,6 @@ app.use(bodyParser.json())
 app.use(passport.initialize())
 passport.use(jwtStrategy)
 let passportJWT = passport.authenticate('jwt', { session: false })
-// app.use('/', passportJWT, require('./routes/login.js'))
 
 // Routes
 app.use('/', require('./routes/rootRouter.js'))

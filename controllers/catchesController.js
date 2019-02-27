@@ -10,24 +10,29 @@ const catchesController = {}
 
 catchesController.getCatches = async (req, res, next) => {
   try {
-    let page = 0
-    let nextPage = 2
-    let resourcesPerPage = 1
+    let page
+    let nextPage
+    let previousPage
+    let resourcesPerPage = 5
     let lastPage
 
     if (req.query.page) {
       page = parseInt(req.query.page, 10)
-      nextPage = page + 1
+    } else {
+      page = 1
     }
 
-    // Todo: Fix lastpage.
-    // Todo: Fix the dynamic retrieval of catches.
+    previousPage = page > 1 ? page - 1 : null // in case user has manually entered ?page=1
+
     let catchData = await Catch.find({})
-    if (catchData.length > 0) { // flytta upp
-      lastPage = Math.ceil(catchData.length / resourcesPerPage - 1)
+    if (catchData.length > 0) {
+      lastPage = Math.ceil(catchData.length / resourcesPerPage)
+      if (page < lastPage) {
+        nextPage = page + 1
+      }
       let catchArray = []
-      let startIndex = page * resourcesPerPage
-      let endIndex = startIndex + (resourcesPerPage - 1)
+      let startIndex = (page - 1) * resourcesPerPage
+      let endIndex = startIndex + resourcesPerPage - 1
 
       if (endIndex >= catchData.length) {
         endIndex = catchData.length - 1
@@ -59,9 +64,11 @@ catchesController.getCatches = async (req, res, next) => {
         data: catchArray
       }, [
         { rel: 'self', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}${req.url}` },
-        { rel: 'self', method: 'POST', title: 'create catch', href: `${process.env.HOST_URL}` },
-        { rel: 'next', method: 'GET', title: `view next ${resourcesPerPage} catches`, href: `${process.env.HOST_URL}/catches?page=${nextPage}` },
-        { rel: 'lastPage', method: 'GET', title: `view last page of catches`, href: `${process.env.HOST_URL}/catches?page=${lastPage}` }
+        { rel: 'create', method: 'POST', title: 'create catch', href: `${process.env.HOST_URL}/catches/` },
+        { rel: 'nextPage', method: 'GET', title: `view next ${resourcesPerPage} catches`, href: nextPage ? `${process.env.HOST_URL}/catches?page=${nextPage}` : '' },
+        { rel: 'previousPage', method: 'GET', title: `view previous ${resourcesPerPage} catches`, href: previousPage ? `${process.env.HOST_URL}/catches?page=${previousPage}` : '' },
+        { rel: 'firstPage', method: 'GET', title: `view first page`, href: `${process.env.HOST_URL}/catches/` },
+        { rel: 'lastPage', method: 'GET', title: `view last page`, href: `${process.env.HOST_URL}/catches?page=${lastPage}` }
       ])
     }
   } catch (err) {

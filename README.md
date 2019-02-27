@@ -1,17 +1,5 @@
 # ep222ee-examination-2
 
-## Data
-
-* The user which catches the fish
-* The position (longitude and latitude) of the catch
-* Species of the fish
-* Weight
-* Length
-* Image-url
-* Timestamp of the catch
-
-the API must have some kind of Authentication/Authorization. A user should be able to sign in through the API in a safe way.
-
 ## Requirements
 
 * The API should at least support representations with application/json
@@ -30,6 +18,5 @@ the API must have some kind of Authentication/Authorization. A user should be ab
 ###. What other authentication solutions could you implement?
 ###. What pros/cons do this solution have?
 ##4. Explain how your web hook works.
-##5. Since this is your first own web API there are probably things you would solve in an other way looking back at this assignment. Write your down thoughts 
-##6. about this.
-##7. Did you do something extra besides the fundamental requirements? Explain them.
+##5. Since this is your first own web API there are probably things you would solve in an other way looking back at this assignment. Write your down thoughts about this.
+##6. Did you do something extra besides the fundamental requirements? Explain them.
