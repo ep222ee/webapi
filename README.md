@@ -12,11 +12,11 @@
 
 # Report
 
-##1. Explain and defend your implementation of HATEOAS in your solution.
-##2. If your solution should implement multiple representations of the resources. How would you do it?
-##3. Motivate and defend your authentication solution.
-###. What other authentication solutions could you implement?
-###. What pros/cons do this solution have?
-##4. Explain how your web hook works.
-##5. Since this is your first own web API there are probably things you would solve in an other way looking back at this assignment. Write your down thoughts about this.
-##6. Did you do something extra besides the fundamental requirements? Explain them.
+## 1. Explain and defend your implementation of HATEOAS in your solution.
+## 2. If your solution should implement multiple representations of the resources. How would you do it?
+## 3. Motivate and defend your authentication solution.
+### What other authentication solutions could you implement?
+### What pros/cons do this solution have?
+## 4. Explain how your web hook works.
+## 5. Since this is your first own web API there are probably things you would solve in an other way looking back at this assignment. Write your down thoughts about this.
+## 6. Did you do something extra besides the fundamental requirements? Explain them.
