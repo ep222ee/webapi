@@ -65,10 +65,11 @@ catchesController.getCatches = async (req, res, next) => {
       }, [
         { rel: 'self', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}${req.url}` },
         { rel: 'create', method: 'POST', title: 'create catch', href: `${process.env.HOST_URL}/catches/` },
-        { rel: 'nextPage', method: 'GET', title: `view next ${resourcesPerPage} catches`, href: nextPage ? `${process.env.HOST_URL}/catches?page=${nextPage}` : '' },
-        { rel: 'previousPage', method: 'GET', title: `view previous ${resourcesPerPage} catches`, href: previousPage ? `${process.env.HOST_URL}/catches?page=${previousPage}` : '' },
-        { rel: 'firstPage', method: 'GET', title: `view first page`, href: `${process.env.HOST_URL}/catches/` },
-        { rel: 'lastPage', method: 'GET', title: `view last page`, href: `${process.env.HOST_URL}/catches?page=${lastPage}` }
+        { rel: 'next page', method: 'GET', title: `view next ${resourcesPerPage} catches`, href: nextPage ? `${process.env.HOST_URL}/catches?page=${nextPage}` : '' },
+        { rel: 'previous page', method: 'GET', title: `view previous ${resourcesPerPage} catches`, href: previousPage ? `${process.env.HOST_URL}/catches?page=${previousPage}` : '' },
+        { rel: 'first page', method: 'GET', title: `view first page`, href: `${process.env.HOST_URL}/catches/` },
+        { rel: 'last page', method: 'GET', title: `view last page`, href: `${process.env.HOST_URL}/catches?page=${lastPage}` },
+        { rel: 'hook', method: 'POST', title: `setup webhook`, href: `${process.env.HOST_URL}/hooks/` }
       ])
     }
   } catch (err) {
@@ -146,13 +147,23 @@ catchesController.getCatch = async (req, res, next) => {
 }
 
 catchesController.putCatch = async (req, res, next) => {
-  let updatedCatch = await Catch.findOneAndUpdate(req.params.id, req.body, function (err, data) {
+  console.log(req.body)
+  let updateData = {
+    user: xssFilters.inHTMLData(req.body.user),
+    position: xssFilters.inHTMLData(req.body.position),
+    species: xssFilters.inHTMLData(req.body.species),
+    weight: xssFilters.inHTMLData(req.body.weight),
+    length: xssFilters.inHTMLData(req.body.length),
+    imageUrl: xssFilters.inHTMLData(req.body.imageUrl),
+    time: xssFilters.inHTMLData(req.body.time)
+  }
+
+  let updatedCatch = await Catch.findByIdAndUpdate(req.params.id, updateData, (err, data) => {
     if (err) {
       next()
     }
     return data
   })
-
   res.status(200).json({
     data: {
       type: 'catches',

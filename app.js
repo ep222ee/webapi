@@ -31,10 +31,16 @@ app.use(passport.initialize())
 passport.use(jwtStrategy)
 let passportJWT = passport.authenticate('jwt', { session: false })
 
-// Routes
+// Set accept header.
+app.use((req, res, next) => {
+  res.set('Accept', 'application/json')
+  next()
+})
+
+// Routes.
 app.use('/', require('./routes/rootRouter.js'))
 app.use('/', require('./routes/loginRouter.js'))
-
+// Protected Routes.
 app.use('/', passportJWT, require('./routes/catchesRouter.js'))
 app.use('/', passportJWT, require('./routes/hooksRouter.js'))
 
