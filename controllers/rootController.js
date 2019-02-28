@@ -9,6 +9,7 @@ rootController.getRoot = async (req, res, next) => {
     { rel: 'self', method: 'GET', href: `${process.env.HOST_URL}` },
     { rel: 'login', method: 'POST', title: 'log in', href: `${process.env.HOST_URL}/login` }
   ])
+  next()
 }
 
 module.exports = rootController

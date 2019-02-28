@@ -17,13 +17,11 @@ loginController.loginPost = async (req, res, next) => {
       { rel: 'view all', method: 'GET', title: 'view all catches', href: `${process.env.HOST_URL}/catches/` }
     ])
   } else {
-    next()
     res.status(401).json({
       message: 'Bad credentials, please try again'
-    }, [
-      { rel: 'self', method: 'POST', href: `${process.env.HOST_URL}${req.url}` }
-    ])
+    })
   }
+  next()
 }
 
 module.exports = loginController

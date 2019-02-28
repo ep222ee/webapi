@@ -10,6 +10,7 @@ const catchesController = {}
 
 catchesController.getCatches = async (req, res, next) => {
   try {
+    console.log(req.headers)
     let page
     let nextPage
     let previousPage

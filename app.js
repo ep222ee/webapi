@@ -29,6 +29,7 @@ app.use(bodyParser.json())
 // Passport settings.
 app.use(passport.initialize())
 passport.use(jwtStrategy)
+
 let passportJWT = passport.authenticate('jwt', { session: false })
 
 // Set accept header.
