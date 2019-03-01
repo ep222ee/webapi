@@ -1,0 +1,883 @@
+{
+	"info": {
+		"_postman_id": "54a91274-9a08-4a33-8f02-d6bf92834f53",
+		"name": "api testcommands",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get catches Not Authenticated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5add53c4-9f94-4cef-ab86-7972aed1a906",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get catches nextPage Not Authenticated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5472831-6e7a-44f7-908f-dfa0d4d7a0f4",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{nextPage}}",
+					"host": [
+						"{{nextPage}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get catches previousPage Not Authenticated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b10e25c-fbd0-4014-83e6-e723c06d3fe7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{previousPage}}",
+					"host": [
+						"{{previousPage}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get catches lastPage Not Authenticated",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lastPage}}",
+					"host": [
+						"{{lastPage}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create catch Not Authenticated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea234c58-2c03-4b6c-9591-47ac2178517d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\": \"Admin\",\n\t\"position\": [10, 20],\n\t\"species\": \"seabass\",\n\t\"weight\": 4,\n\t\"length\": 20,\n\t\"imageUrl\": \"https://www.finafisken.com/gladalaxen.jpg\",\n\t\"time\" : \"12:40:23\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/catches",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches"
+					]
+				},
+				"description": "attempts to create a new catch resource"
+			},
+			"response": []
+		},
+		{
+			"name": "get specific catch Not Authenticated",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update catch Not Authenticated",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\": \"Rolf\",\n\t\"position\": [121, 22],\n\t\"species\": \"salmon\",\n\t\"weight\": 14,\n\t\"length\": 28,\n\t\"imageUrl\": \"https://www.silwlen.com/rekord.jpg\",\n\t\"time\" : \"11:47:23\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete latestCatch Not Authenticated",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "webhook setup Not Authenticated",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hookUrl\": \"http://webhook.site/87a2f01f-8afd-4536-b970-5f31ec2bbd48\",\n\t\"options\": {\n\t\t\"events\":[\"created\", \"updated\", \"deleted\"]\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{url}}/hooks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "entrypoint",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login wrong credentials",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"denhäranvändarenfinnsinte\",\n\t\"password\": \"dethärlösenordetstämmerinte\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37d52b57-1a0d-49e0-8666-2d8b04cd8dfb",
+						"exec": [
+							"let data2 = pm.response.json();",
+							"pm.environment.set(\"token\", data2.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get catches",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5add53c4-9f94-4cef-ab86-7972aed1a906",
+						"exec": [
+							"let thisPage = pm.response.json();",
+							"pm.environment.set(\"nextPage\", thisPage.links[2].href);",
+							"pm.environment.set(\"lastPage\", thisPage.links[5].href )"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get catches nextPage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5472831-6e7a-44f7-908f-dfa0d4d7a0f4",
+						"exec": [
+							"let thisPage = pm.response.json();",
+							"pm.environment.set(\"nextPage\", thisPage.links[2].href);",
+							"pm.environment.set(\"previousPage\", thisPage.links[3].href);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{nextPage}}",
+					"host": [
+						"{{nextPage}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get catches previousPage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b10e25c-fbd0-4014-83e6-e723c06d3fe7",
+						"exec": [
+							"let thisPage = pm.response.json();",
+							"pm.environment.set(\"nextPage\", thisPage.links[2].href);",
+							"pm.environment.set(\"previousPage\", thisPage.links[3].href);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{previousPage}}",
+					"host": [
+						"{{previousPage}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get catches lastPage",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{lastPage}}",
+					"host": [
+						"{{lastPage}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create catch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea234c58-2c03-4b6c-9591-47ac2178517d",
+						"exec": [
+							"let latestCatch = pm.response.json();",
+							"pm.environment.set(\"latestCatch\", latestCatch.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\": \"Admin\",\n\t\"position\": [10, 20],\n\t\"species\": \"seabass\",\n\t\"weight\": 4,\n\t\"length\": 20,\n\t\"imageUrl\": \"https://www.finafisken.com/gladalaxen.jpg\",\n\t\"time\" : \"12:40:23\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/catches",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches"
+					]
+				},
+				"description": "attempts to create a new catch resource"
+			},
+			"response": []
+		},
+		{
+			"name": "get specific catch(lastest created)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update latestCatch",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\": \"Rolf\",\n\t\"position\": [121, 22],\n\t\"species\": \"salmon\",\n\t\"weight\": 14,\n\t\"length\": 28,\n\t\"imageUrl\": \"https://www.silwlen.com/rekord.jpg\",\n\t\"time\" : \"11:47:23\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get specific catch(lastest created) post update",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete latestCatch",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get specific catch(lastest created) post delete",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "webhook setup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hookUrl\": \"http://webhook.site/87a2f01f-8afd-4536-b970-5f31ec2bbd48\",\n\t\"options\": {\n\t\t\"events\":[\"created\", \"updated\", \"deleted\"]\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{url}}/hooks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"hooks"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "32e258f5-7307-4d5c-a592-7e8b2a880a9e",
+			"key": "jwt",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
