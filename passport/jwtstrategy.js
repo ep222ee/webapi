@@ -13,7 +13,7 @@ const JWTOptions = {
 }
 
 module.exports = new JwtStrategy(JWTOptions, (jwtPayload, done) => {
-  if (jwtPayload.username === 'admin') {
+  if (jwtPayload.username === process.env.HARDCODED_USER) {
     // hardcoded user
     // find user in db if not hardcoded.
     return done(null, jwtPayload.username)

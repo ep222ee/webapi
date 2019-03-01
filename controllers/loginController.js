@@ -1,7 +1,7 @@
 'use strict'
 // Requires.
 const jwt = require('jsonwebtoken')
-
+require('dotenv').config()
 // initiate login controller object.
 const loginController = {}
 /**
@@ -13,7 +13,7 @@ const loginController = {}
  * offers hateoas browsing.
  */
 loginController.loginPost = async (req, res, next) => {
-  if (req.body.username === 'admin' && req.body.password === 'admin') {
+  if (req.body.username === process.env.HARDCODED_USER && req.body.password === process.env.HARDCODED_PASSWORD) {
     // Hardcoded user.
     // Should query DB.
     let secret = process.env.SECRET
