@@ -2,6 +2,8 @@
 
 # Report
 
+Disclaimer: I made an assumption that the api was meant for administrators of the fishingclub to be able to manage catches. Rathern than having users post their own. Therefore there's nothing public about the api and all routes are protected with jwt. I.e even read-only resources are protected behind jwt. This is also why the webhooks are not tied to specific users. Since they're tied to the underlying "corporation" per se.
+
 ## 1. Explain and defend your implementation of HATEOAS in your solution.
 The api works similarly to what a client app would, where there's one entry point where a user can log in. after a succesful login the user can access the catches, which is a list of catches. the catches are paginated where one can browse through hateoas next/previous/first/last page. One can also access each individual resource + actions through the list. And if one were to GET a specific resourse, one can browse back to the list of catches through hateoas in addition to managing that specific resource. The webhook setup is also accesible through the catches list hateoas, where one can post to the webhook and receive a hateoas link back to catches. The login is not accesible through hateoas post-login, my reasoning behind this was that once you're logged in, you're not interested in loggin in, and would rather log in again once a 401 is received.
 
