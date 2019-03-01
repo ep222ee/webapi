@@ -48,3 +48,8 @@ I'm not sure but in regards to the "The API should give some ability to register
 * 6
 * 7
 * 8
+
+# Webhook
+a registered webhook can be seen at : https://webhook.site/#/87a2f01f-8afd-4536-b970-5f31ec2bbd48/92d37a35-673d-433a-9c97-3f8d8d95a010/1
+
+to test one of your own. change the "hookUrl" param in the json body in postman.
