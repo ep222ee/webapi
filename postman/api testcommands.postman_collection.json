@@ -1,6 +1,10 @@
 {
 	"info": {
+<<<<<<< HEAD
 		"_postman_id": "54a91274-9a08-4a33-8f02-d6bf92834f53",
+=======
+		"_postman_id": "403a52dd-a653-4f69-b558-dc078aafd723",
+>>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 		"name": "api testcommands",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -228,7 +232,11 @@
 					"raw": ""
 				},
 				"url": {
+<<<<<<< HEAD
 					"raw": "{{url}}/catches/{{latestCatch}}",
+=======
+					"raw": "{{url}}/catches/{{latestCatch}}?=",
+>>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 					"host": [
 						"{{url}}"
 					],
@@ -673,7 +681,11 @@
 					"raw": ""
 				},
 				"url": {
+<<<<<<< HEAD
 					"raw": "{{url}}/catches/{{latestCatch}}",
+=======
+					"raw": "{{url}}/catches/{{latestCatch}}?=",
+>>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 					"host": [
 						"{{url}}"
 					],
@@ -726,7 +738,11 @@
 			"response": []
 		},
 		{
+<<<<<<< HEAD
 			"name": "get specific catch(lastest created) post update",
+=======
+			"name": "get updated catch",
+>>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 			"request": {
 				"method": "GET",
 				"header": [
@@ -747,7 +763,11 @@
 					"raw": ""
 				},
 				"url": {
+<<<<<<< HEAD
 					"raw": "{{url}}/catches/{{latestCatch}}",
+=======
+					"raw": "{{url}}/catches/{{latestCatch}}?=",
+>>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 					"host": [
 						"{{url}}"
 					],
@@ -799,7 +819,44 @@
 			"response": []
 		},
 		{
+<<<<<<< HEAD
 			"name": "get specific catch(lastest created) post delete",
+=======
+			"name": "delete nonexistent resource",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get nonexistent resource",
+>>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 			"request": {
 				"method": "GET",
 				"header": [
@@ -820,7 +877,11 @@
 					"raw": ""
 				},
 				"url": {
+<<<<<<< HEAD
 					"raw": "{{url}}/catches/{{latestCatch}}",
+=======
+					"raw": "{{url}}/catches/{{latestCatch}}?=",
+>>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 					"host": [
 						"{{url}}"
 					],
@@ -839,6 +900,43 @@
 			"response": []
 		},
 		{
+<<<<<<< HEAD
+=======
+			"name": "update nonexistent resource",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\": \"Rolf\",\n\t\"position\": [121, 22],\n\t\"species\": \"salmon\",\n\t\"weight\": 14,\n\t\"length\": 28,\n\t\"imageUrl\": \"https://www.silwlen.com/rekord.jpg\",\n\t\"time\" : \"11:47:23\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/catches/{{latestCatch}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"catches",
+						"{{latestCatch}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+>>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 			"name": "webhook setup",
 			"request": {
 				"method": "POST",

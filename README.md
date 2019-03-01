@@ -46,7 +46,8 @@ Api url : https://134.209.94.122/
 * 1 Download content of the "postman" folder from the repo
 * 2 Import collection and environment
 * 3 set postman environment to api_ep222ee
-* 4 run the postman suite from top to bottom
+* 4 since the https is self signed, turn off SSL certificate verification in postman. File->Settings->General->SSL certificate verification OFF
+* 5 run the postman suite from top to bottom
 
 # Webhook
 a registered webhook can be seen at : https://webhook.site/#/87a2f01f-8afd-4536-b970-5f31ec2bbd48/92d37a35-673d-433a-9c97-3f8d8d95a010/1
