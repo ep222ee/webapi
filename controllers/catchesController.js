@@ -1,16 +1,24 @@
 'use strict'
 
+// Requires.
 require('dotenv').config()
 const Catch = require('../models/CatchSchema')
 const Hook = require('../models/HookSchema')
 const fetch = require('node-fetch')
 const xssFilters = require('xss-filters')
 
+// Initiate controller object.
 const catchesController = {}
 
+/**
+ * /catches/ GET
+ * retrieve a list of catches
+ * retrieves resources from database
+ * pagination based on queries
+ * offers hateoas browsing.
+ */
 catchesController.getCatches = async (req, res, next) => {
   try {
-    console.log(req.headers)
     let page
     let nextPage
     let previousPage
@@ -78,6 +86,14 @@ catchesController.getCatches = async (req, res, next) => {
   }
 }
 
+/**
+ * /catches/ POST
+ * add a catch resource.
+ * filters input.
+ * saves resources to database.
+ * offers hateoas browsing.
+ * trigger webhook
+ */
 catchesController.postCatches = async (req, res, next) => {
   let newCatch = new Catch({
     user: xssFilters.inHTMLData(req.body.user),
@@ -119,6 +135,12 @@ catchesController.postCatches = async (req, res, next) => {
   })
 }
 
+/**
+ * /catches/:id GET
+ * retrieve a specific resources
+ * retrieves resource from database
+ * offers hateoas browsing.
+ */
 catchesController.getCatch = async (req, res, next) => {
   try {
     let catchData = await Catch.findById(req.params.id)
@@ -147,8 +169,14 @@ catchesController.getCatch = async (req, res, next) => {
   }
 }
 
+/**
+ * /catches/:id PUT
+ * update a specific resources
+ * retrieves resource from database and updates.
+ * offers hateoas browsing.
+ * trigger webhook.
+ */
 catchesController.putCatch = async (req, res, next) => {
-  console.log(req.body)
   let updateData = {
     user: xssFilters.inHTMLData(req.body.user),
     position: xssFilters.inHTMLData(req.body.position),
@@ -188,12 +216,19 @@ catchesController.putCatch = async (req, res, next) => {
   catchesController.sendPayload('updated', updatedCatch)
 }
 
+/**
+ * /catches/:id DELETE
+ * delete a specific resource
+ * deletes a resource from database.
+ * offers hateoas browsing.
+ * trigger webhook.
+ */
 catchesController.deleteCatch = async (req, res, next) => {
   await Catch.findByIdAndDelete(req.params.id, (err, catchData) => {
     if (err) {
       next()
     }
-    if (catchData !== null) {
+    if (catchData !== null) { // avoid receiving resource with null-data
       res.status(204).send()
       catchesController.sendPayload('deleted', catchData)
     } else {
@@ -202,6 +237,12 @@ catchesController.deleteCatch = async (req, res, next) => {
   })
 }
 
+/**
+ * Set up payload to be sent.
+ * Post payload to all subscribed urls for that event.
+ * @param event String describing which event was triggered.
+ * @param catchData Object containing the result of a manipulated resource.
+ */
 catchesController.sendPayload = async (event, catchData) => {
   try {
     let payload = {

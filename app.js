@@ -1,20 +1,16 @@
 'use strict'
 
 // Requires
-
 const express = require('express')
+const hateoasLinker = require('express-hateoas-links')
 const bodyParser = require('body-parser')
-
 const app = express()
 const port = 3000
-
 const mongoose = require('./config/mongoose.js')
-
 const passport = require('passport')
 const jwtStrategy = require('./passport/jwtstrategy')
 
-const hateoasLinker = require('express-hateoas-links')
-
+// Initiate mongoDB
 mongoose()
 
 // Hateoas url middleware.
@@ -29,7 +25,6 @@ app.use(bodyParser.json())
 // Passport settings.
 app.use(passport.initialize())
 passport.use(jwtStrategy)
-
 let passportJWT = passport.authenticate('jwt', { session: false })
 
 // Set accept header.

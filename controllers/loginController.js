@@ -1,10 +1,21 @@
 'use strict'
+// Requires.
 const jwt = require('jsonwebtoken')
-const loginController = {}
 
+// initiate login controller object.
+const loginController = {}
+/**
+ * /login/ Post
+ * authenticate to api
+ * receives body with username and password.
+ * check if credentials are correct.
+ * signs JWT Token
+ * offers hateoas browsing.
+ */
 loginController.loginPost = async (req, res, next) => {
-  // Hardcoded user.
   if (req.body.username === 'admin' && req.body.password === 'admin') {
+    // Hardcoded user.
+    // Should query DB.
     let secret = process.env.SECRET
     let tokenLifeTime = '1h'
     let token = jwt.sign({ username: req.body.username }, secret, { expiresIn: tokenLifeTime })

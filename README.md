@@ -1,20 +1,20 @@
 # ep222ee-examination-2
 
-## Requirements
-
-* The API should embrace the idea of HATEOAS. The API should have one entry point and use HATEOAS for making the API browsable.
-* Postman collection that showcases api calls, Don´t forget to make calls that shows your error handling like bad requests, bad credentials and so on.
-
 # Report
 
 ## 1. Explain and defend your implementation of HATEOAS in your solution.
+The api works similarly to what a client app would, where there's one entry point where a user can log in. after a succesful login the user can access the catches, which is a list of catches. the catches are paginated where one can browse through hateoas next/previous/first/last page. One can also access each individual resource + actions through the list. And if one were to GET a specific resourse, one can browse back to the list of catches through hateoas in addition to managing that specific resource. The webhook setup is also accesible through the catches list hateoas, where one can post to the webhook and receive a hateoas link back to catches. The login is not accesible through hateoas post-login, my reasoning behind this was that once you're logged in, you're not interested in loggin in, and would rather log in again once a 401 is received.
 
-the api is browsable, has one entry point..cont..
+A 204 No content is received on deleting a resource which means i couldn't send a response with a message/hateoas links. I preferred responding with the correct status code rather than maybe responding with a 200 and a message, and let the user(s) of the api work around 
+the statuscode instead. 
+
+i followed the conventions of the "express hateoas links" library, where you offer a link for each available method. this helped with some input information.
+
 ## 2. If your solution should implement multiple representations of the resources. How would you do it?
-I would probably check the Accept header or Content-Type header and base the response on what format the request is asking for. If they support multiple/all formats i'd have a default format(application/json)
-## 3. Motivate and defend your authentication solution.
-The api is using JSON web tokens for authentication purposes. 
+I would probably check the Accept header or Content-Type header and base the response on what format the request is asking for. If they support multiple/all formats i'd have a default format(application/json). I would also set my Accept header to support the given formats.
 
+## 3. Motivate and defend your authentication solution.
+The api is using JSON web tokens for authentication purposes, which helps to preserve the stateless server nature of the REST constraints since there's no session being maintained.
 
 ### What other authentication solutions could you implement?
 * HTTP Basic Authentication
@@ -38,3 +38,13 @@ Envisioning the hateoas structure was pretty hard to do by just looking at code 
 
 ## 6. Did you do something extra besides the fundamental requirements? Explain them.
 I'm not sure but in regards to the "The API should give some ability to register a web hook which will trigger on some, of you chosen, event." requirement, i implemented a way for a user to choose which events to take part of..
+
+# Instructions
+* 1 
+* 2
+* 3
+* 4
+* 5
+* 6
+* 7
+* 8

@@ -1,3 +1,5 @@
+'use strict'
+
 const passportJwt = require('passport-jwt')
 const JwtStrategy = passportJwt.Strategy
 const ExtractJWT = passportJwt.ExtractJwt

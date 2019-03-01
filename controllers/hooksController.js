@@ -1,8 +1,17 @@
 'use strict'
+// Require.s
 const Hook = require('../models/HookSchema')
 
+// Initiate hook controller object.
 const hooksController = {}
 
+/**
+ * /hooks/ Post
+ * subscribe to webhook
+ * receives body with url and event options.
+ * saves hook to database.
+ * offers hateoas browsing.
+ */
 hooksController.postHooks = async (req, res, next) => {
   let newHook = new Hook({
     hookUrl: req.body.hookUrl,
