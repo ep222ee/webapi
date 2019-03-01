@@ -1,10 +1,6 @@
 {
 	"info": {
-<<<<<<< HEAD
-		"_postman_id": "54a91274-9a08-4a33-8f02-d6bf92834f53",
-=======
 		"_postman_id": "403a52dd-a653-4f69-b558-dc078aafd723",
->>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 		"name": "api testcommands",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -232,11 +228,7 @@
 					"raw": ""
 				},
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{url}}/catches/{{latestCatch}}",
-=======
 					"raw": "{{url}}/catches/{{latestCatch}}?=",
->>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 					"host": [
 						"{{url}}"
 					],
@@ -681,11 +673,7 @@
 					"raw": ""
 				},
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{url}}/catches/{{latestCatch}}",
-=======
 					"raw": "{{url}}/catches/{{latestCatch}}?=",
->>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 					"host": [
 						"{{url}}"
 					],
@@ -738,11 +726,7 @@
 			"response": []
 		},
 		{
-<<<<<<< HEAD
-			"name": "get specific catch(lastest created) post update",
-=======
 			"name": "get updated catch",
->>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 			"request": {
 				"method": "GET",
 				"header": [
@@ -763,11 +747,7 @@
 					"raw": ""
 				},
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{url}}/catches/{{latestCatch}}",
-=======
 					"raw": "{{url}}/catches/{{latestCatch}}?=",
->>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 					"host": [
 						"{{url}}"
 					],
@@ -819,9 +799,6 @@
 			"response": []
 		},
 		{
-<<<<<<< HEAD
-			"name": "get specific catch(lastest created) post delete",
-=======
 			"name": "delete nonexistent resource",
 			"request": {
 				"method": "DELETE",
@@ -856,7 +833,6 @@
 		},
 		{
 			"name": "get nonexistent resource",
->>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 			"request": {
 				"method": "GET",
 				"header": [
@@ -877,11 +853,7 @@
 					"raw": ""
 				},
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{url}}/catches/{{latestCatch}}",
-=======
 					"raw": "{{url}}/catches/{{latestCatch}}?=",
->>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 					"host": [
 						"{{url}}"
 					],
@@ -900,8 +872,6 @@
 			"response": []
 		},
 		{
-<<<<<<< HEAD
-=======
 			"name": "update nonexistent resource",
 			"request": {
 				"method": "PUT",
@@ -936,7 +906,6 @@
 			"response": []
 		},
 		{
->>>>>>> 1f945894940b96d189b45cb778bbc87e63535493
 			"name": "webhook setup",
 			"request": {
 				"method": "POST",
