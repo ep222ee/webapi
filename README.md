@@ -40,16 +40,21 @@ Envisioning the hateoas structure was pretty hard to do by just looking at code 
 I'm not sure but in regards to the "The API should give some ability to register a web hook which will trigger on some, of you chosen, event." requirement, i implemented a way for a user to choose which events to take part of..
 
 # Instructions
-* 1 
-* 2
-* 3
-* 4
-* 5
-* 6
-* 7
-* 8
+Api url : https://134.209.94.122/
+* 1 Download content of the "postman" folder from the repo
+* 2 Import collection and environment
+* 3 set postman environment to api_ep222ee
+* 4 run the postman suite from top to bottom
 
 # Webhook
 a registered webhook can be seen at : https://webhook.site/#/87a2f01f-8afd-4536-b970-5f31ec2bbd48/92d37a35-673d-433a-9c97-3f8d8d95a010/1
 
-to test one of your own. change the "hookUrl" param in the json body in postman.
+to test the webhook. Either change the "hookUrl" param in the json body in postman to a prefered url.
+or perform a post to https://134.209.94.122/hooks with a json/application body with the following format. 
+
+{
+	"hookUrl": "http://webhook.site/87a2f01f-8afd-4536-b970-5f31ec2bbd48",
+	"options": {
+		"events":["created", "updated", "deleted"]
+	}
+}
